@@ -15,12 +15,11 @@ import qiu.niorgai.StatusBarCompat
  */
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var mainActivityView: MainActivityView
+  private val mainActivityView: MainActivityView by lazy { MainActivityView(this) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    mainActivityView = MainActivityView(this)
     setContentView(mainActivityView)
     setSupportActionBar(mainActivityView.toolbar)
     StatusBarCompat.changeToLightStatusBar(this)

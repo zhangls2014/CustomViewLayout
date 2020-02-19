@@ -3,6 +3,7 @@ package com.zhangls.android.layout
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -39,10 +40,12 @@ class MainActivityView : CoordinatorLayout {
   }
 
   init {
-    layoutParams = coordinatorLayoutParams(matchParent, matchParent)
-
     // toolbar
-    appBarLayout.addView(toolbar, matchParent, wrapContent)
+    with(TypedValue()) {
+      context.theme.resolveAttribute(android.R.attr.actionBarSize, this, true)
+      val toolbarSize = context.resources.getDimensionPixelSize(resourceId)
+      appBarLayout.addView(toolbar, matchParent, toolbarSize)
+    }
     addView(appBarLayout, coordinatorLayoutParams(matchParent, wrapContent))
 
     // content
@@ -53,21 +56,11 @@ class MainActivityView : CoordinatorLayout {
         endToEnd = parentId
         bottomToBottom = parentId
       })
-      val colorBackground = context.toColorInt(android.R.color.white)
-      background = ColorDrawable(colorBackground)
+    }.let {
+      addView(it, coordinatorLayoutParams(matchParent, matchParent) {
+        behavior = AppBarLayout.ScrollingViewBehavior()
+      })
     }
-//    ConstraintSet().apply {
-//      connect(textView.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-//      connect(textView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-//      connect(textView.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-//      connect(textView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-//      constrainWidth(textView.id, ConstraintSet.WRAP_CONTENT)
-//      constrainHeight(textView.id, ConstraintSet.WRAP_CONTENT)
-//      applyTo(constraintLayout)
-//    }
-    addView(constraintLayout, coordinatorLayoutParams(matchParent, matchParent) {
-      behavior = AppBarLayout.ScrollingViewBehavior()
-    })
 
     // fab
     addView(fab, coordinatorLayoutParams(wrapContent, wrapContent) {
