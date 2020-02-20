@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 /**
  * dp 转 px
  */
-val Number.dpToPx: Float
+val Number.dpFloat: Float
   get() = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,
     toFloat(),
@@ -18,7 +18,7 @@ val Number.dpToPx: Float
 /**
  * dp 转 px
  */
-val Number.dpToPxInt: Int
+val Number.dp: Int
   get() = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,
     toFloat(),

@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.zhangls.android.layout.extension.toColorInt
+import com.zhangls.android.layout.extension.colorInt
 import qiu.niorgai.StatusBarCompat
 
 
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     setContentView(mainActivityView)
     setSupportActionBar(mainActivityView.toolbar)
     StatusBarCompat.changeToLightStatusBar(this)
-    StatusBarCompat.setStatusBarColor(this, toColorInt(R.color.colorPrimary))
+    StatusBarCompat.setStatusBarColor(this, colorInt(R.color.colorPrimary))
 
     mainActivityView.fab.setOnClickListener { view ->
       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

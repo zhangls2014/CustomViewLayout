@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.zhangls.android.layout.extension
 
 import android.view.View
@@ -27,7 +29,7 @@ val ConstraintLayout.LayoutParams.parentId: Int
 /**
  * 配置 LayoutParams 的扩展内联函数
  */
-fun CoordinatorLayout.coordinatorLayoutParams(
+fun ViewGroup.coordinatorLayoutParams(
   width: Int,
   height: Int,
   params: (CoordinatorLayout.LayoutParams.() -> Unit)? = null
@@ -37,7 +39,7 @@ fun CoordinatorLayout.coordinatorLayoutParams(
   return layoutParams
 }
 
-fun ConstraintLayout.constrainLayoutParams(
+fun ViewGroup.constrainLayoutParams(
   width: Int,
   height: Int,
   params: (ConstraintLayout.LayoutParams.() -> Unit)? = null

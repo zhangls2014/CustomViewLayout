@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">CustomViewLayout</string>
     <string name="action_settings">Settings</string>
     <string name="activity_main_hello_world">Hello World!</string>
 </resources>

@@ -25,8 +25,10 @@ class MainActivityView : CoordinatorLayout {
   }
   val toolbar = Toolbar(context).apply {
     popupTheme = R.style.AppTheme_PopupOverlay
-    val color = context.toColorInt(R.color.colorPrimary)
+    val color = context.colorInt(R.color.colorPrimary)
     background = ColorDrawable(color)
+    setTitle(R.string.app_name)
+    setTitleTextColor(context.colorInt(android.R.color.white))
   }
   val fab = FloatingActionButton(context).apply {
     setImageDrawable(context.getDrawable(android.R.drawable.ic_dialog_email))
@@ -35,8 +37,8 @@ class MainActivityView : CoordinatorLayout {
   private val textView = TextView(context).apply {
     id = R.id.activity_main_hello
     text = resources.getString(R.string.activity_main_hello_world)
-    setTextColor(context.toColorInt(android.R.color.black))
-    setBackgroundColor(context.toColorInt(R.color.colorPrimary))
+    setTextColor(context.colorInt(android.R.color.black))
+    setBackgroundColor(context.colorInt(R.color.colorPrimary))
   }
 
   init {
@@ -65,7 +67,7 @@ class MainActivityView : CoordinatorLayout {
     // fab
     addView(fab, coordinatorLayoutParams(wrapContent, wrapContent) {
       gravity = Gravity.BOTTOM.or(Gravity.END)
-      val margin = 16.dpToPxInt
+      val margin = 16.dp
       setMargins(margin, margin, margin, margin)
     })
   }
