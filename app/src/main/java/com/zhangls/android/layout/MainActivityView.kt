@@ -20,65 +20,68 @@ import com.zhangls.android.layout.extension.*
  */
 class MainActivityView : CoordinatorLayout {
 
-  private val appBarLayout = AppBarLayout(context).apply {
-    context.setTheme(R.style.AppTheme_AppBarOverlay)
-  }
   val toolbar = Toolbar(context).apply {
-    popupTheme = R.style.AppTheme_PopupOverlay
     val color = context.colorInt(R.color.colorPrimary)
     background = ColorDrawable(color)
     setTitle(R.string.app_name)
     setTitleTextColor(context.colorInt(android.R.color.white))
   }
+
+  private val appBarLayout = AppBarLayout(context).apply {
+    with(TypedValue()) {
+      context.theme.resolveAttribute(android.R.attr.actionBarSize, this, true)
+      val toolbarSize = context.resources.getDimensionPixelSize(resourceId)
+      addView(toolbar, matchParent, toolbarSize)
+    }
+
+    layoutParams = coordinatorLayoutParams(matchParent, wrapContent)
+  }
+
   val fab = FloatingActionButton(context).apply {
     setImageDrawable(context.getDrawable(android.R.drawable.ic_dialog_email))
+    layoutParams = coordinatorLayoutParams(wrapContent, wrapContent) {
+      gravity = Gravity.BOTTOM.or(Gravity.END)
+      val margin = 16.dp
+      setMargins(margin, margin, margin, margin)
+    }
   }
-  private val constraintLayout = ConstraintLayout(context).apply { id = View.generateViewId() }
+
   private val textView = TextView(context).apply {
     id = R.id.activity_main_hello
     text = resources.getString(R.string.activity_main_hello_world)
     setTextColor(context.colorInt(android.R.color.black))
     setBackgroundColor(context.colorInt(R.color.colorPrimary))
+
+    layoutParams = constrainLayoutParams(wrapContent, wrapContent) {
+      startToStart = parentId
+      topToTop = parentId
+      endToEnd = parentId
+      bottomToBottom = parentId
+    }
   }
 
-  init {
-    // toolbar
-    with(TypedValue()) {
-      context.theme.resolveAttribute(android.R.attr.actionBarSize, this, true)
-      val toolbarSize = context.resources.getDimensionPixelSize(resourceId)
-      appBarLayout.addView(toolbar, matchParent, toolbarSize)
-    }
-    addView(appBarLayout, coordinatorLayoutParams(matchParent, wrapContent))
+  private val constraintLayout = ConstraintLayout(context).apply {
+    id = View.generateViewId()
 
-    // content
-    constraintLayout.apply {
-      addView(textView, constrainLayoutParams(wrapContent, wrapContent) {
-        startToStart = parentId
-        topToTop = parentId
-        endToEnd = parentId
-        bottomToBottom = parentId
-      })
-    }.let {
-      addView(it, coordinatorLayoutParams(matchParent, matchParent) {
-        behavior = AppBarLayout.ScrollingViewBehavior()
-      })
+    layoutParams = coordinatorLayoutParams(matchParent, matchParent) {
+      behavior = AppBarLayout.ScrollingViewBehavior()
     }
 
-    // fab
-    addView(fab, coordinatorLayoutParams(wrapContent, wrapContent) {
-      gravity = Gravity.BOTTOM.or(Gravity.END)
-      val margin = 16.dp
-      setMargins(margin, margin, margin, margin)
-    })
+    addView(textView)
   }
 
   constructor(context: Context) : this(context, null)
 
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-    context,
-    attrs,
-    defStyleAttr
-  )
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    // appbar
+    addView(appBarLayout)
+
+    // content
+    addView(constraintLayout)
+
+    // fab
+    addView(fab)
+  }
 }
