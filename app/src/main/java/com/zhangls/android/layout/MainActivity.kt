@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import com.zhangls.android.layout.extension.colorInt
 import qiu.niorgai.StatusBarCompat
 
@@ -15,21 +14,15 @@ import qiu.niorgai.StatusBarCompat
  */
 class MainActivity : AppCompatActivity() {
 
-  private val mainActivityView: MainActivityView by lazy { MainActivityView(this) }
+  private val mainView: MainView by lazy { MainView(this) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setContentView(mainActivityView)
-    setSupportActionBar(mainActivityView.toolbar)
+    setContentView(mainView)
+    setSupportActionBar(mainView.toolbar)
     StatusBarCompat.changeToLightStatusBar(this)
     StatusBarCompat.setStatusBarColor(this, colorInt(R.color.colorPrimary))
-
-    mainActivityView.fab.setOnClickListener { view ->
-      Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        .setAction("Action", null)
-        .show()
-    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
