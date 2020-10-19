@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -39,7 +40,7 @@ class MainView : CoordinatorLayout {
   }
 
   private val fab = FloatingActionButton(context).apply {
-    setImageDrawable(context.getDrawable(android.R.drawable.ic_dialog_email))
+    setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.ic_dialog_email))
     layoutParams = coordinatorLayoutParams(wrapContent, wrapContent) {
       gravity = Gravity.BOTTOM.or(Gravity.END)
       val margin = 16.dp
